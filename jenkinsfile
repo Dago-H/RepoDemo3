@@ -1,6 +1,10 @@
 pipeline{
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'cursodvops/jenkinsexample'
+    }
+
     trigger{
         githubPush()
     }
@@ -12,7 +16,10 @@ pipeline{
         }
     stage('Build') {
             steps {
-                bat 'echo "Building the project..."'
+                script{
+                    docker.build(DOCKER_IMAGE)
+                } 
+                //bat 'echo "Building the project..."'
             }
         }
     }
