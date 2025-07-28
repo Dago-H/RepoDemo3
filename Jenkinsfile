@@ -1,23 +1,45 @@
-pipeline{
+pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'cursodvops/jenkinsexample'
+        DOCKER_IMAGE = 'toony1908/jenkinsexample'
     }
 
-    trigger{
+    triggers {
         githubPush()
     }
-    stages{
+
+    stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Dago-H/RepoDemo3.git'
+                git branch: 'main', url: 'https://github.com/tony1908/jenkinsexample.git'
             }
         }
-    stage('Build') {
-        steps {
-            bat 'echo "Building the application"'
+
+stage('Build') {
+    steps {
+        bat 'echo "Building the application"'
+    }
+}
+
+        stage('Test') {
+            steps {
+                bat 'echo "Running tests"'
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    docker.build(DOCKER_IMAGE)
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'echo "Deploying the application"'
+            }
+        }   
     }
 }
