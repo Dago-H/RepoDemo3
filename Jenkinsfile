@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'toony1908/jenkinsexample'
+        DOCKER_IMAGE = 'cursodvops/jenkinsexample'
     }
 
     triggers {
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/tony1908/jenkinsexample.git'
+                git branch: 'main', url: 'https://github.com/Dago-H/RepoDemo3.git'
             }
         }
 
@@ -38,8 +38,9 @@ stage('Build') {
 
         stage('Deploy') {
             steps {
-                bat 'echo "Deploying the application"'
+                bat 'echo "Ejemplo"'
             }
         }   
-    }
+
+
 }
