@@ -16,9 +16,27 @@ pipeline {
             }
         }
 
+        //stage('Build') {
+        //    steps {
+        //        bat 'echo "Probando ......"'
+        //    }
+        //}
+
         stage('Build') {
             steps {
-                bat 'echo "Probando ......"'
+                script {
+                    dockerImage = docker.build(DOCKER_IMAGE)
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script{
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
 
