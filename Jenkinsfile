@@ -16,31 +16,11 @@ pipeline {
             }
         }
 
-stage('Build') {
-    steps {
-        bat 'echo "Building the application"'
+        stage('Build') {
+            steps {
+                bat 'echo "Probando ......"'
+            }
+        }
+
     }
-}
-
-        stage('Test') {
-            steps {
-                bat 'echo "Running tests"'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                script {
-                    docker.build(DOCKER_IMAGE)
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                bat 'echo "Ejemplo"'
-            }
-        }   
-
-
 }
