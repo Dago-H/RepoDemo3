@@ -1,0 +1,19 @@
+pipeline{
+    agent any
+
+    trigger{
+        githubPush()
+    }
+    stages{
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: ''
+            }
+        }
+    stage('Build') {
+            steps {
+                bat 'echo "Building the project..."'
+            }
+        }
+    }
+}
