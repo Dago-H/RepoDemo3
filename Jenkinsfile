@@ -47,7 +47,7 @@ pipeline {
                     mail to: 'trabajo.2024.comun@gmail.com',
                         from: 'trabajo.2024.comun@gmail.com',
                         subject: "Fallo al subir la imagen de Docker ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: "Ha fallado la subida de la imagen de Docker al repositorio. Por favor, revisa el pipeline. ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                        body: "Ha fallado la subida de la imagen de Docker al repositorio. Por favor, revisa el pipeline. ${env.JOB_NAME} #${env.BUILD_NUMBER} ${env.BUILD_URL}"
                 }
             }
         }
