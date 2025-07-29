@@ -33,7 +33,7 @@ pipeline {
         stage('Push') {
             steps {
                 script{
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentia') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         dockerImage.push('latest')
                     }
                 }
@@ -57,5 +57,26 @@ pipeline {
             }
         }
 
+    }
+
+    post {
+        always {
+            echo 'Pipeline execution complete.'
+            cleanWs() // Clean up the workspace
+        }
+        success {
+            script{
+                        def logLines = currentBuild.rawBuild.getLog(100)
+                        def logText = logLines.join('\n')
+                        mail to: 'trabajo.2024.comun@gmail.com',
+                            from: 'trabajo.2024.comun@gmail.com',
+                            subject: "Exito al subir la imagen de Docker ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                            body: "Exito en la subida de la imagen de Docker al repositorio. Por favorr, revisa el pipeline. ${env.JOB_NAME} #${env.BUILD_NUMBER} ${env.BUILD_URL} \n\n" + 
+                                  "Detalles:\n${logText}"
+                    }
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
     }
 }
